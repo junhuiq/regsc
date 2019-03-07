@@ -1,2 +1,7 @@
-# regsc
-An R package for estimating regressions with structural changes using group-fused Lasso
+# What is regsc?
+**regsc** is an R package for estimating linear regressions with structural changes using GFL (group-fused Lasso), which is proposed in Qian and Su (2016). We consider the following regression model with possibly multiple structural changes in <br>
+y<sub>t</sub> = x<sub>t</sub> ' &beta;<sub>t</sub>  + z<sub>t</sub> ' &gamma; + u<sub>t</sub>,<br>
+where x<sub>t</sub> is a p-by-1 vector of variables that may have time-varying effects on y, z<sub>t</sub> is a q-by-1 vector of variables that have constant effects on y. We assume that although the number of structural changes in &beta;<sub>t</sub> is unknown, it is much smaller than the sample size.
+
+# References
+Junhui Qian, Liangjun Su, 2016, Shrinkage estimation of regression models with multiple structural changes, with Liangjun Su, Econometric Theory, 32 (6), 1376-1433. 
