@@ -4,4 +4,4 @@ y<sub>t</sub> = x<sub>t</sub> ' &beta;<sub>t</sub>  + z<sub>t</sub> ' &gamma; + 
 where x<sub>t</sub> is a p-by-1 vector of variables that may have time-varying effects on y, z<sub>t</sub> is a q-by-1 vector of variables that have constant effects on y. We assume that although the number of structural changes in &beta;<sub>t</sub> is unknown, it is much smaller than the sample size.
 
 # References
-Junhui Qian, Liangjun Su, 2016, Shrinkage estimation of regression models with multiple structural changes, with Liangjun Su, Econometric Theory, 32 (6), 1376-1433. 
+Junhui Qian, Liangjun Su, 2016, Shrinkage estimation of regression models with multiple structural changes, Econometric Theory, 32 (6), 1376-1433. 
