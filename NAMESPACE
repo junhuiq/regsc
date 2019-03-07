@@ -1,0 +1,12 @@
+useDynLib("regsc")
+import(Formula)
+import(pracma)
+importFrom("stats", "delete.response", "dnorm", "model.matrix",
+             "model.response", "pnorm", "printCoefmat", "terms")
+export(regsc)
+export(fpostest)
+export(rbcd)
+S3method(plot, regsc)
+S3method(summary, regsc)
+S3method(print, regsc)
+S3method(print, summary.regsc)
