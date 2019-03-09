@@ -1,6 +1,6 @@
 Package: regsc
 Version: 0.3
-Date: 2019-02-06
+Date: 2019-03-09
 Title: Regressions with Structural Changes
 Author: Junhui Qian <jhqian@sjtu.edu.cn> and Liangjun Su <ljsu@smu.edu.sg>
 Maintainer: Junhui Qian <jhqian@sjtu.edu.cn>
