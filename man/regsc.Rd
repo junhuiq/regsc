@@ -7,7 +7,7 @@ Estimate Regressions with Structural Changes}
 regsc is used to estimate time-series regressions with an unknown number of structural changes. To estimate structural changes, a penalized least squares problem with the group-fused-Lasso (GFL) penalty is solved. The tuning parameter on the GFL penalty can be selected either by information criterion (default) or by a rule of thumb.
 }
 \usage{
-regsc(formula,data,method="ic",date=seq(1,dim(data)[1]))
+regsc(formula,data,lambda=NULL,method="ic",date=seq(1,dim(data)[1]))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,6 +16,9 @@ regsc(formula,data,method="ic",date=seq(1,dim(data)[1]))
   }
   \item{data}{
   An optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula).
+  }
+  \item{lambda}{
+  An optional positive numeric, the tuning parameter on the group-fused-Lasso penalty. If lambda is not supplied, it takes \code{NULL} and \code{regsc} would choose a value for \code{lambda} by "information criterion" or "rule of thumb", depending on the value of \code{method}. 
   }
   \item{method}{
   An optional string or integer indicating the method of selecting tuning parameter. "ic" or "information criterion" or 0 indicates the method of information criterion. "rot" or "rule of thumb" or 1 indiciates the method of rule of thumb. The rule of thumb is simply 0.618*maxlambda, where maxlambda is obtained by get_max_lambda(y,x,z). If no method is specified, then "ic" would be used.
