@@ -165,8 +165,24 @@ regsc_rt <-function(y,x,z=numeric(0),h=1,weight=rep(1,length(y)-1),XTol=1e-6,max
   return(list(regime=regime,alpha=res$alpha,Sigma=res$Sigma,R2=res$R2,ssr=res$ssr,resid=res$resid,lambda=lambda))
 }
 
+# Estimate the regression with structural changes, using a user-supplied tuning parameter on the group-fused-Lasso penalty.  
+regsc_us <-function(y,x,z=numeric(0),lambda,h=1,weight=rep(1,length(y)-1),XTol=1e-6,maxIter=1000){
+  n=dim(x)[1]
+  p=dim(x)[2]
+  q=dim(z)[2]
+  if(is.null(q)){
+    q=0
+    z=numeric(0)
+  }
+  tht=rbcd(y,x,lambda,z,weight,XTol,maxIter)$theta
+  regime=findbreaks(tht,h)
+  res=fpostest(y,x,regime,z)
+  return(list(regime=regime,alpha=res$alpha,Sigma=res$Sigma,R2=res$R2,ssr=res$ssr,resid=res$resid,lambda=lambda))
+}
+
+
 # Estimate the regression with structural changes.
-regsc <-function(formula,data,method="ic",date=seq(1,dim(data)[1])){
+regsc <-function(formula,data,lambda=NULL,method="ic",date=seq(1,dim(data)[1])){
   mf <- match.call(expand.dots = FALSE)
   m <- match(c("formula", "data"), names(mf), 0)
   mf <- mf[c(1, m)]
@@ -190,6 +206,10 @@ regsc <-function(formula,data,method="ic",date=seq(1,dim(data)[1])){
       z = as.matrix(z[,-1])
       attr(mtz,"intercept")<-0L
     }
+  }
+  if(is.numeric(lambda)){
+    res <- regsc_us(y,x,z,lambda)
+    method = "user supplied"
   }
   if(method=="ic" | method==0 | method=="information criterion"){
     res <- regsc_ic(y,x,z)
@@ -222,7 +242,8 @@ print.regsc <- function(object){
   cat("\n")
   print(object$formula)
   cat("\n")
-  cat("The method of choosing tuning parameter: ", object$method,"\n")
+  cat("The method of choosing tuning parameter (lambda): ", object$method,"\n")
+  cat("The value of the tuning parameter (lambda): ", object$lambda,"\n")
   if(m==0){
     cat("No structural change has been found. The usual OLS is performed.\n")
   }else{
@@ -328,6 +349,7 @@ summary.regsc <- function(object){
     y = object$y,
     z = object$z,
     method=object$method,
+    lambda=object$lambda,
     p = p,
     q = q,
     sigma = sigma,
@@ -355,6 +377,7 @@ print.summary.regsc <- function(object){
   m=length(regime)-2
   cat("\n")
   cat("The method of choosing tuning parameter: ", object$method,"\n")
+  cat("The value of the tuning parameter (lambda): ", object$lambda,"\n")
   if(m==0){
     cat("No structural change has been found. The usual OLS is performed.\n")
   }else{
