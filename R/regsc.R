@@ -208,8 +208,13 @@ regsc <-function(formula,data,lambda=NULL,method="ic",date=seq(1,dim(data)[1])){
     }
   }
   if(is.numeric(lambda)){
-    res <- regsc_us(y,x,z,lambda)
-    method = "user supplied"
+    if(lambda>0){
+      res <- regsc_us(y,x,z,lambda)
+      method = "user supplied"
+    }else{
+      cat("Error: The tuning parameter (lambda) should be greater than zero. Use information criterion to select a lambda, instead.\n")
+      method = "information criterion"
+    }
   }
   if(method=="ic" | method==0 | method=="information criterion"){
     res <- regsc_ic(y,x,z)
