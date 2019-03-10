@@ -10,6 +10,12 @@ install.packages("devtools")
 library(devtools)
 install_github("junhuiq/regsc")
 ```
+## Download source and install locally
+On Windows, download <a href="http://jhqian.org/software/regsc.zip">regsc.zip</a>, and run:
+``` r
+install.packages("regsc.zip", repos = NULL, type = "win.binary")
+``` 
+
 # An Example
 After installing **regsc**, one can try estimating a monetary policy rule of the Federal Reserve:
 ``` r
